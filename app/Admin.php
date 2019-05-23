@@ -29,4 +29,9 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function response_admin()
+    {
+        return $this->hasMany(Response::class, 'admin_id');
+    }
 }

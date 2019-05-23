@@ -29,4 +29,14 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function review_customer()
+    {
+        return $this->hasMany(ProductReview::class, 'user_id');
+    }
+
+    public function transaksi_customer()
+    {
+        return $this->hasMany(Transaction::class, 'user_id');
+    }
 }
