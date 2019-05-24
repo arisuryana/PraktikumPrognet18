@@ -4,6 +4,40 @@
         <nav class="navbar-custom">
 
             <ul class="list-inline float-right mb-0">
+                <li class="list-inline-item dropdown notification-list">
+                    <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="false" aria-expanded="false">
+                        <i class="ti-bell noti-icon"></i>
+                            @php
+                                $count = 0;
+                            @endphp
+                            @foreach (Auth::guard('admin')->user()->unreadNotifications as $notification)
+                                @php
+                                    $count += 1;
+                                @endphp
+                            @endforeach
+                            @if ($count == 0)
+                            @else
+                            <span class="badge badge-success noti-icon-badge">{{$count}}</span>
+                            @endif
+                       
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg">
+                        <!-- item-->
+                        <div class="dropdown-item noti-title">
+                            <h5>Notification</h5>
+                        </div>
+
+                        @foreach (Auth::guard('admin')->user()->unreadNotifications as $notification)
+                                {{-- <a href="#"> --}}
+                                {!! $notification->data !!}
+                                {{-- </a> --}}
+                        @endforeach
+                        
+                    </div>
+                </li>
+                
+                
                 <!-- language-->
 
                 <li class="list-inline-item dropdown notification-list">

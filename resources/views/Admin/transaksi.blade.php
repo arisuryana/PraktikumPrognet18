@@ -51,12 +51,16 @@
                                     <td>Rp. {{ number_format($data->sub_total,0,',','.') }}</td>
                                     <td>Rp. {{ number_format($data->shipping_cost,0,',','.') }}</td>
                                     <td>Rp. {{ number_format($data->total,0,',','.') }}</td>
-                                    <td style="text-align:center;"><img style="width:100px;" src="/{{$data->proof_of_payment}}" alt=""></td>
+                                    @if ($data->proof_of_payment == null)
+                                        <td style="text-align:center;">Belum Upload Bukti</td>
+                                    @else
+                                        <td style="text-align:center;"><img style="width:100px;" src="/{{$data->proof_of_payment}}" alt=""></td>
+                                    @endif
+                                    
                                     <td>{{$data->status}}</td>
                                     <td style="text-align:center;">
-                                        <button type="button" id="edit-item" data-item-id="{{$data->id}}" class="btn btn-warning" title="Edit">
-                                            <i class="">Ganti Status</i>
-                                        </button>
+                                        <a href="/admin/transaksi/ubah/{{$data->id}}" class="btn btn-info">Ganti Status
+                                        <i class="mdi mdi-pencil"></i></a>
                                     </td>
                                 </tr>
                             </form>

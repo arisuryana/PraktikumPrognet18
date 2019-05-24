@@ -38,7 +38,15 @@
                                         <h6 class="text-muted fw-400">Kategori Produk :</h6>
                                         <div class="input-group mt-2">
                                                 <select class="select2 mb-3 select2-multiple" name="kategori[]" style="width: 100%" multiple="multiple" data-placeholder="Choose">
-                                                     
+                                                    @foreach ($allKategori as $all)
+                                                        <option value="{{$all->id}}" 
+                                                            @foreach($category as $row)
+                                                                @if ($all->id == $row->category_id)
+                                                                    {{'selected'}}		
+                                                                @endif
+                                                            @endforeach
+                                                        >{{$all->category_name}}</option>
+                                                    @endforeach
                                                 </select>
                                         </div>
                                     </div>
@@ -85,8 +93,6 @@
                                         <h6 class="text-muted fw-400">Gambar Produk</h6>
                                         <div class="input-group mt-2 image-container">
                                             <div class="card-body">
-                                                {{-- <input type="file" class="custom-file-input" multiple name="images[]">
-                                                <label class="custom-file-label">Choose file</label> --}}
                                                 @foreach ($images as $img)
                                                     <input type="file" name="images[]" multiple id="input-file-now" class="dropify" data-default-file="/{{$img->image_name}}"/><br>
                                                 @endforeach

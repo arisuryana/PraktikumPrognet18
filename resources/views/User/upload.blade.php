@@ -27,14 +27,13 @@
                     <h2><strong>Upload Bukti Pembayaran</strong></h2>
                 </div>
                 <div class="body">
-                    <form action="/upload/{{$id}}" id="my-dropzone" class="dropzone" method="POST" enctype="multipart/form-data">
+                    <form action="/upload/{{$id}}" id="my-dropzone" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method("PUT")
                         
                         <div class="dz-message">
                             <div class="drag-icon-cph"> <i class="material-icons">touch_app</i> </div>
-                            <h4>Drop files here or click to upload.</h4>
-                            <em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em> </div>
+                            
                         <div class="row clearfix">
                             <input name="bukti" required type="file" id="single-bukti" accept="image/*" multiple/>
                         </div>

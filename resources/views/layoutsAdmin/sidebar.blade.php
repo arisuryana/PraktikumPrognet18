@@ -47,7 +47,21 @@
                             <span> Transaksi </span>
                         </a>
                     </li>
-
+                    <li>
+                        <a href="/admin/response" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i>
+                            <span> Response </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/report-pertahun" class="waves-effect"><i class="mdi mdi-message-alert"></i>
+                            <span> Report Pertahun </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/report-perbulan" class="waves-effect"><i class="mdi mdi-message-alert"></i>
+                            <span> Report Perbulan </span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="clearfix"></div>

@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Auth;
 use Alert;
 use App\Transaction;
+use App\Products;
 
 class ProfileController extends Controller
 {
@@ -61,5 +62,31 @@ class ProfileController extends Controller
             return redirect('/invoice')->with('status', 'Image Upload Error !');
         }
 
+    }
+
+    public function updateStatus($id)
+    {
+        Transaction::find($id)->update([
+            'status' => "success"
+        ]);
+
+        //Alert::success('Success Message', 'Update Success')->persistent("Close");
+        
+        return redirect('/invoice');
+    }
+
+    public function listReview($id)
+    {
+        $this->data['product'] = Products::join('transaction_details','transaction_details.product_id','products.id')
+        ->join('transactions','transactions.id','transaction_details.transaction_id')
+        ->join('product_images','products.id','product_images.product_id')
+        ->select('products.*','product_images.image_name', 'transaction_details.status','transaction_details.id as id_detail')
+        ->where('transactions.status','success')
+        ->where('transactions.id',$id)
+        ->where('transactions.user_id',Auth::guard('web')->user()->id)
+        ->groupBy('products.id')
+        ->get();
+        
+        return view('User.list_review', $this->data);
     }
 }

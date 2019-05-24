@@ -32,6 +32,7 @@
                                 @foreach ($image as $item)
                                     @if ($loop->iteration == 1)
                                         <div class="tab-pane active" id="/{{$item->image_name}}"><img src="/{{$item->image_name}}" alt="" class="img-fluid" /></div>
+                                        <input type="hidden" id="selling-{{$loop->iteration}}" value="{{$product->selling}}">
                                     @else
                                         <div class="tab-pane" id="/{{$item->image_name}}"><img src="/{{$item->image_name}}" alt="" class="img-fluid"/></div>
                                     @endif
@@ -49,6 +50,7 @@
                         </div>
                         <div class="details col-lg-8 col-md-12">
                             <h3 class="product-title m-b-0">{{$product->product_name}}</h3>
+                            
                             <h4 class="price m-t-0">Harga : <span class="col-amber">Rp. {{number_format($product->price,0,',','.')}}</span></h4>
                             <div class="rating">
                                 <div class="stars">
@@ -98,42 +100,21 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="review">
                             <ul class="row list-unstyled c_review">
+                            @foreach ($review as $item)
                                 <li class="col-12">
                                     <div class="avatar">
                                         <a href="javascript:void(0);"><img class="rounded" src="/assets_front/images/xs/avatar2.jpg" alt="user" width="60"></a>
                                     </div>                                
                                     <div class="comment-action">
-                                        <h5 class="c_name">Hossein Shams</h5>
-                                        <p class="c_msg m-b-0">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. </p>
-                                        <div class="badge badge-primary">iPhone 8</div>
+                                        <h5 class="c_name">{{$item->user->name}}</h5>
+                                        <p class="c_msg m-b-0">{{$item->content}}</p>
                                         <span class="m-l-10">
-                                            <a href="javascript:void(0);"><i class="zmdi zmdi-star col-amber"></i></a>
-                                            <a href="javascript:void(0);"><i class="zmdi zmdi-star col-amber"></i></a>
-                                            <a href="javascript:void(0);"><i class="zmdi zmdi-star col-amber"></i></a>
-                                            <a href="javascript:void(0);"><i class="zmdi zmdi-star col-amber"></i></a>
-                                            <a href="javascript:void(0);"><i class="zmdi zmdi-star-outline text-muted"></i></a>
+                                            ({{$item->rate}} <i class="zmdi zmdi-star col-amber"></i>)
                                         </span>
-                                        <small class="comment-date float-sm-right">Dec 21, 2017</small>
+                                        <small class="comment-date float-sm-right">{{\Carbon\Carbon::parse($item->created_at)->format('M d,Y')}}</small>
                                     </div>                                
                                 </li>
-                                <li class="col-12">
-                                    <div class="avatar">
-                                        <a href="javascript:void(0);"><img class="rounded" src="/assets_front/images/xs/avatar3.jpg" alt="user" width="60"></a>
-                                    </div>                                
-                                    <div class="comment-action">
-                                        <h5 class="c_name">Tim Hank</h5>
-                                        <p class="c_msg m-b-0">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</p>
-                                        <div class="badge badge-primary">Nokia 8</div>
-                                        <span class="m-l-10">
-                                            <a href="javascript:void(0);"><i class="zmdi zmdi-star col-amber"></i></a>
-                                            <a href="javascript:void(0);"><i class="zmdi zmdi-star col-amber"></i></a>
-                                            <a href="javascript:void(0);"><i class="zmdi zmdi-star col-amber"></i></a>
-                                            <a href="javascript:void(0);"><i class="zmdi zmdi-star col-amber"></i></a>
-                                            <a href="javascript:void(0);"><i class="zmdi zmdi-star-outline text-muted"></i></a>
-                                        </span>
-                                        <small class="comment-date float-sm-right">Dec 18, 2017</small>
-                                    </div>                                
-                                </li>                                   
+                            @endforeach                                  
                             </ul>
                         </div>
                     </div>
@@ -154,6 +135,9 @@
     
                 var qty = $('#'+item).val();
                 var jumlah = parseInt(qty) + 1;
+                var diskon = $('#discount-'+item).val();
+                var selling = $('#selling-'+item).val();
+
                 $('#'+item).val(jumlah);
                 $('#'+another).val(jumlah);
                 for (let index = 1; index < 6; index++) {
@@ -170,7 +154,10 @@
                     url: '/add_item',
                     data: { 
                         'product_id': id, 
-                        'qty': jumlah
+                        'qty': jumlah,
+                        'selling': selling,
+                        'discount': diskon,
+                        
                     },
                     success: function(data){
                         console.log("Success "+data);

@@ -19,7 +19,7 @@ class Transaction extends Model
 
     public function product_detail()
     {
-        return $this->belongsToMany(Products::class, 'transaction_details');
+        return $this->belongsToMany(Products::class, 'transaction_details','transaction_id', 'product_id');
     }
 }
 

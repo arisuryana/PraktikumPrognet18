@@ -12,10 +12,17 @@ class TransaksiController extends Controller
 {
     public function index()
     {
-        $this->data['transaksi'] = Transaction::all();
+        $this->data['transaksi'] = Transaction::get();
 
         return view('Admin.transaksi', $this->data);
         //return $this->data;
+    }
+
+    public function gantiStatus($id)
+    {
+        $transaksi = Transaction::find($id);
+        return view('Admin.ubahtransaksi', compact('id','transaksi'));
+        
     }
 
     public function updateStatus($id, Request $request)

@@ -37,6 +37,7 @@
                                     <th>Shipping</th>
                                     <th>Total</th>
                                     <th>Bukti Pembayaran</th>
+                                    <th>Succeed</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -47,6 +48,7 @@
                                     <th>Shipping</th>
                                     <th>Total</th>
                                     <th>Bukti Pembayaran</th>
+                                    <th>Succeed</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -91,8 +93,19 @@
                                         @if ($data->proof_of_payment != null)
                                             <td style="text-align:center; width:90px;"><img style="width:75px;" src="/{{$data->proof_of_payment}}" alt=""></td>
                                         @else
-                                            <td style="text-align:center;"><a href="/upload_bukti/{{$data->id}}"><button class="btn btn-primary"><i style="font-size:20px;" class=""></i>Upload</button></a></td>
+                                            @if ($data->status == 'expired')
+                                                <td>Cannot Upload Proof Of Payment</td>
+                                            @else
+                                                <td style="text-align:center;"><a href="/upload_bukti/{{$data->id}}"><button class="btn btn-primary"><i style="font-size:20px;" class=""></i>Upload</button></a></td>
+                                            @endif
                                         @endif
+                                        <td style="text-align:center;">
+                                            @if ($data->status == 'success')
+                                                <a href="/list-review-product/{{$data->id}}" class="btn btn-primary">Review</a>
+                                            @elseif($data->status == 'verified' || $data->status == 'delivered')
+                                                <a href="/update-status-sukses/{{$data->id}}" class="btn btn-primary"><i class="fa fa-check">Received</i></a>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

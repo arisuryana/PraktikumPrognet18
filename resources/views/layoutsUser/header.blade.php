@@ -1,5 +1,24 @@
 @if (Auth::guard('web')->check())  
-<ul class="nav navbar-nav">                  
+<ul class="nav navbar-nav">
+    <li class="dropdown notifications">
+        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="icon-bell"></i><span class="label-count">5</span></a>
+        <ul class="dropdown-menu">
+            <li class="header">New Notifications</li>
+            <li class="body">
+                <ul class="menu list-unstyled">
+                    <li>
+                        <a href="javascript:void(0);">
+                            <div class="media">
+                                <div class="media-body">
+                                    <span class="message">Meeting with Shawn at Stark Tower by 8 o'clock.</span>                                        
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>                
     <li class="dropdown profile">
         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
             <img class="rounded-circle" src="/assets_front/images/profile_av.jpg" alt="User">

@@ -43,7 +43,7 @@
                                 <tr>
                                     <td>{{ $no }}</td>
                                     <td>{{$pro->product_name}}</td>
-                                    <td>Rp {{$pro->price}}</td>
+                                    <td>Rp. {{ number_format($pro->price,0,',','.') }}</td>
                                     <td>{{$pro->stock}} pcs</td>
                                     <form action="{{route('products.destroy',$pro->id)}}" method="post" class="form-inline">
                                     <td colspan="1">

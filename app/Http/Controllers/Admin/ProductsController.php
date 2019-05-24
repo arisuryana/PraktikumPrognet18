@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
+use File;
 use App\Http\Controllers\Controller;
 use Session;
 use App\Products;
@@ -115,9 +115,10 @@ class ProductsController extends Controller
         //
         $product = Products::where('id', $id)->first();
         $images = ProductImages::where('product_id', $id)->get();
+        $allKategori = Productcategories::all();
         $category = CategoriesDetail::join('product_categories','category_id','=','product_categories.id' )
         ->where('product_id', $id)->get();
-        return view('Admin.products.edit', compact('product','images','category'));
+        return view('Admin.products.edit', compact('product','images','category','allKategori'));
         //return (compact('product','images','category'));
     }
 
@@ -131,6 +132,35 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        Products::find($id)->update($request->all());
+        CategoriesDetail::where('product_id',$id)->delete();
+        foreach ($request->kategori as $kategoris) {
+            CategoriesDetail::create([
+                'product_id' =>  $id,
+                'category_id' => $kategoris,
+            ]);
+        }
+
+        $images = ProductImages::where('product_id',$id)->get();
+        $arrayimage[] = "";
+        foreach ($images as $i) {
+            array_push($arrayimage,$i->image_name);
+        }
+
+        ProductImages::where('product_id',$id)->delete();
+        File::delete($arrayimage);
+        if($request->hasFile('images')) {
+            foreach($request->file('images') as $image) {
+                $destinationPath = public_path('images/product/');
+                $filename = $image->getClientOriginalName();
+                $image->move($destinationPath, $filename);
+                ProductImages::create([
+                    'product_id' =>  $id,
+                    'image_name' =>  'images/product/'. $filename,
+                ]);
+            }
+        }
+        return redirect()->route('products.index');
     }
 
     /**

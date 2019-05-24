@@ -33,6 +33,11 @@ Route::post('/shipping','User\CheckoutController@shipping');
 Route::get('/invoice','User\ProfileController@index');
 Route::get('/upload_bukti/{id}','User\ProfileController@upload');
 Route::put('/upload/{id}','User\ProfileController@uploadBukti');
+Route::get('/update-status-sukses/{id}','User\ProfileController@updateStatus');
+Route::get('/list-review-product/{id}','User\ProfileController@listReview');
+
+Route::get('/review/{id}','User\ProductReviewController@productReview');
+Route::post('/review','User\ProductReviewController@store');
 
 Route::get('/user/profile', 'User\HomeController@profile')->name('user.profile');
 Route::get('/user/logout','Auth\LoginController@logoutUser')->name('user.logout');
@@ -47,5 +52,14 @@ Route::group(['prefix'=>'admin', 'guard'=>'admin'],function(){
     Route::resource('products', 'Admin\ProductsController');
     Route::resource('discount', 'Admin\DiscountController');
     Route::get('/transaksi','Admin\TransaksiController@index');
-    Route::put('transaksi/{{id}}','Admin\TransaksiController@updateStatus');
+    Route::get('/transaksi/ubah/{id}','Admin\TransaksiController@gantiStatus');
+    Route::put('/transaksi/{id}','Admin\TransaksiController@updateStatus');
+
+    Route::get('/response','Admin\ResponseController@index');
+    Route::get('/detail-response/{id}','Admin\ResponseController@showDetail');
+    Route::post('/response','Admin\ResponseController@store');
+    //Route::get('/detail-already-response/{id}','User\ResponseController@showAlreadyResponse');
+
+    Route::get('/report-pertahun','Admin\LaporanController@perTahun');
+    Route::get('/report-perbulan','Admin\LaporanController@perBulan');
 });
