@@ -14,7 +14,7 @@
 // Route::get('/', function () {
 //     return view('layoutsUser.layout');
 // });
-
+Route::get('/chart','Admin\AdminController@chart');
 Auth::routes(['verify' => true]);
 Route::get('/','User\HomeController@index')->name('home');
 Route::get('/home', 'User\HomeController@index')->name('home')->middleware('verified');
@@ -59,6 +59,7 @@ Route::group(['prefix'=>'admin', 'guard'=>'admin'],function(){
     Route::get('/detail-response/{id}','Admin\ResponseController@showDetail');
     Route::post('/response','Admin\ResponseController@store');
     //Route::get('/detail-already-response/{id}','User\ResponseController@showAlreadyResponse');
+    Route::get('/clear-notif', 'Admin\AdminController@clearNotif');
 
     Route::get('/report-pertahun','Admin\LaporanController@perTahun');
     Route::get('/report-perbulan','Admin\LaporanController@perBulan');

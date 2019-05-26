@@ -5,7 +5,7 @@
 
             <ul class="list-inline float-right mb-0">
                 <li class="list-inline-item dropdown notification-list">
-                    <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button"
+                    <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button" id="notif"
                         aria-haspopup="false" aria-expanded="false">
                         <i class="ti-bell noti-icon"></i>
                             @php
@@ -76,4 +76,5 @@
         </nav>
 
     </div>
+    
     <!-- Top Bar End -->

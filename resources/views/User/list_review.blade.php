@@ -62,7 +62,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($data->product_rate == '')
+                                            @if (empty ($data->product_rate))
                                                 <div class="highlight">Not Rated Yet</div>
                                             @else
                                                 <div class="highlight">Rate : {{$data->product_rate}} <i class="fa fa-star"></i></div>

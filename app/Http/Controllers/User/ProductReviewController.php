@@ -76,10 +76,10 @@ class ProductReviewController extends Controller
         $data = ProductReview::where('product_id',$request->product_id)
         ->select(DB::raw('avg(rate) as product_rate'))
         ->first();
-
-        Products::find($request->product_id)->update([
-            'product_rate' => $data->product_rate,
-        ]);
+        
+        $product = Products::find($request->product_id);
+        $product->product_rate = $data->product_rate;
+        $product->save();
 
         $admin = Admin::find(1);
         $product_name = Products::find($request->product_id)->select('product_name')->first();
